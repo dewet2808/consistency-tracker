@@ -179,7 +179,9 @@
   .app-header { display: none; }
 
   .app-main {
-    max-width: 960px;
+    max-width: none;
+    width: 100%;
+    margin: 0;
     padding: 36px 48px 48px;
   }
 }

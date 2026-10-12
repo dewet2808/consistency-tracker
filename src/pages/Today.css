@@ -18,7 +18,7 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-    flex: 0 0 260px;
+    flex: 0 0 300px;
     position: sticky;
     top: 36px;
   }
@@ -29,6 +29,7 @@
     gap: 20px;
     flex: 1;
     min-width: 0;
+    max-width: 680px;
   }
 
   .today-ring-section { justify-content: flex-start; }
