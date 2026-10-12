@@ -112,10 +112,38 @@
 .sidebar-bottom {
   display: flex;
   align-items: center;
-  gap: 4px;
-  padding: 10px 8px 20px;
+  gap: 2px;
+  padding: 12px 8px 20px;
   border-top: 1px solid var(--border);
   flex-shrink: 0;
+}
+
+/* Popover opens upward when triggered from the sidebar */
+.sidebar-bottom .tp-popover {
+  bottom: calc(100% + 10px);
+  top: auto;
+  left: 0;
+  right: auto;
+}
+
+.sidebar-bottom .icon-btn {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  color: var(--muted);
+  transition: background 0.15s, color 0.15s;
+}
+
+.sidebar-bottom .icon-btn:hover {
+  background: rgba(255,255,255,0.07);
+  color: var(--text);
+}
+
+:root.light .sidebar-bottom .icon-btn:hover {
+  background: rgba(0,0,0,0.06);
 }
 
 /* ── App body wrapper ── */
