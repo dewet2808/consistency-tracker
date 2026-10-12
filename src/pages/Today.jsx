@@ -195,204 +195,209 @@ export default function Today({ store }) {
     <div className="today-page">
       {confettiKey > 0 && <Confetti trigger={confettiKey} />}
 
-      {/* Header: greeting + date nav */}
-      <div className="today-greeting">
-        {isViewingToday && (
-          <div className="today-greeting-row">
-            <div className="today-greeting-text">{getGreeting()}</div>
-            <WeeklyReview store={store} />
-          </div>
-        )}
-        <div className="today-date-row">
-          <button
-            className="icon-btn date-nav-btn"
-            onClick={goBack}
-            disabled={viewOffset <= -MAX_BACK_DAYS}
-            title="Previous day"
-          >
-            <ChevronLeft size={16} />
-          </button>
-          <div className={`today-date${!isViewingToday ? ' past' : ''}`}>{dateLabel}</div>
-          {!isViewingToday ? (
-            <button className="icon-btn date-nav-btn" onClick={goForward} title="Next day">
-              <ChevronRight size={16} />
+      {/* Left column: greeting, ring, week strip */}
+      <div className="today-left-col">
+        <div className="today-greeting">
+          {isViewingToday && (
+            <div className="today-greeting-row">
+              <div className="today-greeting-text">{getGreeting()}</div>
+              <WeeklyReview store={store} />
+            </div>
+          )}
+          <div className="today-date-row">
+            <button
+              className="icon-btn date-nav-btn"
+              onClick={goBack}
+              disabled={viewOffset <= -MAX_BACK_DAYS}
+              title="Previous day"
+            >
+              <ChevronLeft size={16} />
             </button>
-          ) : (
-            <div className="date-nav-spacer" />
+            <div className={`today-date${!isViewingToday ? ' past' : ''}`}>{dateLabel}</div>
+            {!isViewingToday ? (
+              <button className="icon-btn date-nav-btn" onClick={goForward} title="Next day">
+                <ChevronRight size={16} />
+              </button>
+            ) : (
+              <div className="date-nav-spacer" />
+            )}
+          </div>
+          {!isViewingToday && (
+            <button className="back-to-today-btn" onClick={() => { setViewOffset(0); setShowDetails(false) }}>
+              Back to today →
+            </button>
           )}
         </div>
-        {!isViewingToday && (
-          <button className="back-to-today-btn" onClick={() => { setViewOffset(0); setShowDetails(false) }}>
-            Back to today →
-          </button>
+
+        {/* Ring */}
+        {totalItems > 0 && (
+          <div className="today-ring-section">
+            <RingProgress pct={pct} done={doneItems} total={totalItems} />
+          </div>
+        )}
+
+        {/* Week strip */}
+        {store.habits.length > 0 && (
+          <div className="card no-hover week-strip-card">
+            <div className="week-strip-label">This week</div>
+            <div className="week-strip">
+              {weekDays.map(({ dateStr, dayLabel, isToday, isViewing, pct: dayPct }) => (
+                <div
+                  key={dateStr}
+                  className="week-day"
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => {
+                    const offset = weekDays.findIndex(w => w.dateStr === dateStr) - 6
+                    setViewOffset(offset)
+                    setShowDetails(false)
+                  }}
+                >
+                  <div
+                    className={`week-dot${isToday ? ' today' : ''}${isViewing && !isToday ? ' viewing' : ''}`}
+                    style={{
+                      '--dot-fill':   dayPct >= 1 ? '100%' : `${Math.round((0.12 + dayPct * 0.53) * 100)}%`,
+                      '--dot-stroke': dayPct >= 1 ? '100%' : `${Math.round((0.25 + dayPct * 0.60) * 100)}%`,
+                    }}
+                  />
+                  <div className={`week-day-label${isToday ? ' today' : ''}${isViewing && !isToday ? ' viewing' : ''}`}>{dayLabel}</div>
+                </div>
+              ))}
+            </div>
+          </div>
         )}
       </div>
 
-      {/* Daily intention — today only */}
-      {isViewingToday && <DailyIntention dateStr={viewDateStr} />}
+      {/* Right column: intention + action lists */}
+      <div className="today-right-col">
+        {/* Daily intention — today only */}
+        {isViewingToday && <DailyIntention dateStr={viewDateStr} />}
 
-      {/* Ring */}
-      {totalItems > 0 && (
-        <div className="today-ring-section">
-          <RingProgress pct={pct} done={doneItems} total={totalItems} />
-        </div>
-      )}
+        {/* All-done state */}
+        {allDone && (
+          <div className="all-done-card card no-hover">
+            <div className="all-done-icon">
+              <Check size={22} strokeWidth={2.5} />
+            </div>
+            <div className="all-done-text">
+              {isViewingToday ? 'All done for today' : 'All done for this day'}
+            </div>
+            <div className="all-done-sub">
+              {isViewingToday ? 'Great work — come back tomorrow.' : 'Nice — everything was completed.'}
+            </div>
+            <button
+              className="all-done-toggle"
+              onClick={() => setShowDetails(v => !v)}
+            >
+              {showDetails ? <><ChevronUp size={14} /> Hide details</> : <><ChevronDown size={14} /> Review</>}
+            </button>
+          </div>
+        )}
 
-      {/* Week strip */}
-      {store.habits.length > 0 && (
-        <div className="card no-hover week-strip-card">
-          <div className="week-strip-label">This week</div>
-          <div className="week-strip">
-            {weekDays.map(({ dateStr, dayLabel, isToday, isViewing, pct: dayPct }) => (
-              <div
-                key={dateStr}
-                className="week-day"
-                style={{ cursor: 'pointer' }}
-                onClick={() => {
-                  const offset = weekDays.findIndex(w => w.dateStr === dateStr) - 6
-                  setViewOffset(offset)
-                  setShowDetails(false)
-                }}
-              >
-                <div
-                  className={`week-dot${isToday ? ' today' : ''}${isViewing && !isToday ? ' viewing' : ''}`}
-                  style={{
-                    '--dot-fill':   dayPct >= 1 ? '100%' : `${Math.round((0.12 + dayPct * 0.53) * 100)}%`,
-                    '--dot-stroke': dayPct >= 1 ? '100%' : `${Math.round((0.25 + dayPct * 0.60) * 100)}%`,
-                  }}
-                />
-                <div className={`week-day-label${isToday ? ' today' : ''}${isViewing && !isToday ? ' viewing' : ''}`}>{dayLabel}</div>
-              </div>
-            ))}
+        {/* Habits */}
+        {showList && viewHabits.length > 0 && (
+          <div className="today-section">
+            <div className="today-section-header">
+              <span className="today-section-title">Habits</span>
+              <span className="today-progress-pct">{doneHabits.length}/{viewHabits.length}</span>
+            </div>
+            <div className="habit-list">
+              {viewHabits.map(habit => {
+                const weekly    = isViewingToday && isWeeklyHabit(habit)
+                const weekCount = weekly ? store.getWeeklyCount(habit.id) : 0
+                const weekDone  = weekly && weekCount >= habit.target_days
+                const done      = weekDone || store.isCompleted(habit.id, viewDateStr)
+                const streak    = store.getStreak(habit.id)
+                return (
+                  <button
+                    key={habit.id}
+                    className={`habit-row card no-hover${done ? ' done' : ''}`}
+                    onClick={() => store.toggleHabit(habit.id, viewDateStr)}
+                  >
+                    <div className="habit-check">
+                      {done && <Check size={11} strokeWidth={3} />}
+                    </div>
+                    <div className="habit-info">
+                      <div className="habit-name">{habit.name}</div>
+                      {weekly
+                        ? <div className="habit-streak">{weekCount}/{habit.target_days}× this week</div>
+                        : streak > 0 && <div className="habit-streak">{streak}-day streak</div>
+                      }
+                    </div>
+                    {weekly && (
+                      <div className="habit-week-badge">{habit.target_days}×/wk</div>
+                    )}
+                  </button>
+                )
+              })}
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {/* All-done state */}
-      {allDone && (
-        <div className="all-done-card card no-hover">
-          <div className="all-done-icon">
-            <Check size={22} strokeWidth={2.5} />
+        {/* Tasks */}
+        {showList && viewTasks.length > 0 && (
+          <div className="today-section">
+            <div className="today-section-header">
+              <span className="today-section-title">Tasks</span>
+              <span className="today-progress-pct">{doneTasks.length}/{viewTasks.length}</span>
+            </div>
+            <div className="habit-list">
+              {viewTasks.map(task => {
+                const done = store.isTaskDone(task.id, viewDateStr)
+                return (
+                  <button
+                    key={task.id}
+                    className={`habit-row card no-hover${done ? ' done' : ''}`}
+                    onClick={() => store.toggleTask(task.id, viewDateStr)}
+                  >
+                    <div className="habit-check">
+                      {done && <Check size={11} strokeWidth={3} />}
+                    </div>
+                    <div className="habit-info">
+                      <div className="habit-name">{task.title}</div>
+                    </div>
+                  </button>
+                )
+              })}
+            </div>
           </div>
-          <div className="all-done-text">
-            {isViewingToday ? 'All done for today' : 'All done for this day'}
-          </div>
-          <div className="all-done-sub">
-            {isViewingToday ? 'Great work — come back tomorrow.' : 'Nice — everything was completed.'}
-          </div>
-          <button
-            className="all-done-toggle"
-            onClick={() => setShowDetails(v => !v)}
-          >
-            {showDetails ? <><ChevronUp size={14} /> Hide details</> : <><ChevronDown size={14} /> Review</>}
-          </button>
-        </div>
-      )}
+        )}
 
-      {/* Habits */}
-      {showList && viewHabits.length > 0 && (
-        <div className="today-section">
-          <div className="today-section-header">
-            <span className="today-section-title">Habits</span>
-            <span className="today-progress-pct">{doneHabits.length}/{viewHabits.length}</span>
-          </div>
-          <div className="habit-list">
-            {viewHabits.map(habit => {
-              const weekly    = isViewingToday && isWeeklyHabit(habit)
-              const weekCount = weekly ? store.getWeeklyCount(habit.id) : 0
-              const weekDone  = weekly && weekCount >= habit.target_days
-              const done      = weekDone || store.isCompleted(habit.id, viewDateStr)
-              const streak    = store.getStreak(habit.id)
-              return (
+        {/* To-Do List (today only) */}
+        {isViewingToday && store.todos.length > 0 && (
+          <div className="today-section">
+            <div className="today-section-header">
+              <span className="today-section-title">To-Do</span>
+              <span className="today-progress-pct">
+                {store.todos.filter(t => t.completed).length}/{store.todos.length}
+              </span>
+            </div>
+            <div className="habit-list">
+              {store.todos.map(todo => (
                 <button
-                  key={habit.id}
-                  className={`habit-row card no-hover${done ? ' done' : ''}`}
-                  onClick={() => store.toggleHabit(habit.id, viewDateStr)}
+                  key={todo.id}
+                  className={`habit-row card no-hover${todo.completed ? ' done' : ''}`}
+                  onClick={() => store.toggleTodo(todo.id)}
                 >
                   <div className="habit-check">
-                    {done && <Check size={11} strokeWidth={3} />}
+                    {todo.completed && <Check size={11} strokeWidth={3} />}
                   </div>
                   <div className="habit-info">
-                    <div className="habit-name">{habit.name}</div>
-                    {weekly
-                      ? <div className="habit-streak">{weekCount}/{habit.target_days}× this week</div>
-                      : streak > 0 && <div className="habit-streak">{streak}-day streak</div>
-                    }
-                  </div>
-                  {weekly && (
-                    <div className="habit-week-badge">{habit.target_days}×/wk</div>
-                  )}
-                </button>
-              )
-            })}
-          </div>
-        </div>
-      )}
-
-      {/* Tasks */}
-      {showList && viewTasks.length > 0 && (
-        <div className="today-section">
-          <div className="today-section-header">
-            <span className="today-section-title">Tasks</span>
-            <span className="today-progress-pct">{doneTasks.length}/{viewTasks.length}</span>
-          </div>
-          <div className="habit-list">
-            {viewTasks.map(task => {
-              const done = store.isTaskDone(task.id, viewDateStr)
-              return (
-                <button
-                  key={task.id}
-                  className={`habit-row card no-hover${done ? ' done' : ''}`}
-                  onClick={() => store.toggleTask(task.id, viewDateStr)}
-                >
-                  <div className="habit-check">
-                    {done && <Check size={11} strokeWidth={3} />}
-                  </div>
-                  <div className="habit-info">
-                    <div className="habit-name">{task.title}</div>
+                    <div className={`habit-name${todo.completed ? ' todo-strike' : ''}`}>{todo.title}</div>
                   </div>
                 </button>
-              )
-            })}
+              ))}
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {/* To-Do List (today only) */}
-      {isViewingToday && store.todos.length > 0 && (
-        <div className="today-section">
-          <div className="today-section-header">
-            <span className="today-section-title">To-Do</span>
-            <span className="today-progress-pct">
-              {store.todos.filter(t => t.completed).length}/{store.todos.length}
-            </span>
+        {totalItems === 0 && (
+          <div className="today-empty">
+            {viewTasks.length === 0 && viewHabits.length === 0
+              ? 'Nothing scheduled — add habits or tasks to get started.'
+              : 'Nothing scheduled for this day.'}
           </div>
-          <div className="habit-list">
-            {store.todos.map(todo => (
-              <button
-                key={todo.id}
-                className={`habit-row card no-hover${todo.completed ? ' done' : ''}`}
-                onClick={() => store.toggleTodo(todo.id)}
-              >
-                <div className="habit-check">
-                  {todo.completed && <Check size={11} strokeWidth={3} />}
-                </div>
-                <div className="habit-info">
-                  <div className={`habit-name${todo.completed ? ' todo-strike' : ''}`}>{todo.title}</div>
-                </div>
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {totalItems === 0 && (
-        <div className="today-empty">
-          {viewTasks.length === 0 && viewHabits.length === 0
-            ? 'Nothing scheduled — add habits or tasks to get started.'
-            : 'Nothing scheduled for this day.'}
-        </div>
-      )}
+        )}
+      </div>
     </div>
   )
 }

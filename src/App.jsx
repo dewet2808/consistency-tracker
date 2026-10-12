@@ -166,67 +166,97 @@ export default function App() {
 
   return (
     <div className="app">
-      <header className="app-header">
-        <div className="app-header-inner">
-          <span className="app-logo-text">
-            <LogoMark size={18} />Daily
-          </span>
-
-          <nav className="app-nav">
-            {TABS.map(({ id, label, Icon }) => (
-              <button
-                key={id}
-                className={`nav-btn${tab === id ? ' active' : ''}`}
-                onClick={() => switchTab(id)}
-              >
-                <Icon size={14} />
-                <span>{label}</span>
-              </button>
-            ))}
-          </nav>
-
-          <div className="header-right">
-            {isNativeIOS() && <ReminderSettings />}
-            <ThemePicker
-              theme={theme}
-              color={color}
-              onToggleTheme={toggleTheme}
-              onSetColor={setColor}
-            />
-            <ProfileSheet user={user} onSignOut={signOut} store={store} />
-          </div>
+      <aside className="app-sidebar">
+        <div className="sidebar-logo">
+          <LogoMark size={20} />
+          <span className="sidebar-wordmark">Daily</span>
         </div>
-      </header>
+        <nav className="sidebar-nav">
+          {TABS.map(({ id, label, Icon }) => (
+            <button
+              key={id}
+              className={`sidebar-nav-btn${tab === id ? ' active' : ''}`}
+              onClick={() => switchTab(id)}
+            >
+              <Icon size={17} />
+              <span>{label}</span>
+            </button>
+          ))}
+        </nav>
+        <div className="sidebar-bottom">
+          <ThemePicker
+            theme={theme}
+            color={color}
+            onToggleTheme={toggleTheme}
+            onSetColor={setColor}
+          />
+          <ProfileSheet user={user} onSignOut={signOut} store={store} />
+        </div>
+      </aside>
 
-      <main className="app-main">
-        {TABS.map(({ id }) => mountedTabs.has(id) && (
-          <div key={id} className="page-view" style={{ display: tab === id ? undefined : 'none' }}>
-            {PAGE_COMPONENTS[id]}
+      <div className="app-body">
+        <header className="app-header">
+          <div className="app-header-inner">
+            <span className="app-logo-text">
+              <LogoMark size={18} />Daily
+            </span>
+
+            <nav className="app-nav">
+              {TABS.map(({ id, label, Icon }) => (
+                <button
+                  key={id}
+                  className={`nav-btn${tab === id ? ' active' : ''}`}
+                  onClick={() => switchTab(id)}
+                >
+                  <Icon size={14} />
+                  <span>{label}</span>
+                </button>
+              ))}
+            </nav>
+
+            <div className="header-right">
+              {isNativeIOS() && <ReminderSettings />}
+              <ThemePicker
+                theme={theme}
+                color={color}
+                onToggleTheme={toggleTheme}
+                onSetColor={setColor}
+              />
+              <ProfileSheet user={user} onSignOut={signOut} store={store} />
+            </div>
           </div>
-        ))}
-      </main>
+        </header>
 
-      <nav className="bottom-nav">
-        {TABS.map(({ id, label, Icon }) => (
-          <button
-            key={id}
-            className={`bottom-nav-btn${tab === id ? ' active' : ''}`}
-            onClick={() => switchTab(id)}
-          >
-            <Icon size={20} />
-            <span>{label}</span>
-          </button>
-        ))}
-      </nav>
+        <main className="app-main">
+          {TABS.map(({ id }) => mountedTabs.has(id) && (
+            <div key={id} className="page-view" style={{ display: tab === id ? undefined : 'none' }}>
+              {PAGE_COMPONENTS[id]}
+            </div>
+          ))}
+        </main>
 
-      {toast && <Toast message={toast} onDone={() => setToast(null)} />}
+        <nav className="bottom-nav">
+          {TABS.map(({ id, label, Icon }) => (
+            <button
+              key={id}
+              className={`bottom-nav-btn${tab === id ? ' active' : ''}`}
+              onClick={() => switchTab(id)}
+            >
+              <Icon size={20} />
+              <span>{label}</span>
+            </button>
+          ))}
+        </nav>
 
-      {showPaywall && (
-        <Paywall
-          onClose={() => setShowPaywall(false)}
-          onPurchased={() => { setIsPro(true); setShowPaywall(false) }}
-        />
-      )}
+        {toast && <Toast message={toast} onDone={() => setToast(null)} />}
+
+        {showPaywall && (
+          <Paywall
+            onClose={() => setShowPaywall(false)}
+            onPurchased={() => { setIsPro(true); setShowPaywall(false) }}
+          />
+        )}
+      </div>
     </div>
   )
 }

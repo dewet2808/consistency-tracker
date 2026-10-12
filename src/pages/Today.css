@@ -1,5 +1,40 @@
 .today-page { display: flex; flex-direction: column; gap: 20px; }
 
+/* Column wrappers — transparent on mobile */
+.today-left-col,
+.today-right-col {
+  display: contents;
+}
+
+@media (min-width: 900px) {
+  .today-page {
+    display: flex;
+    flex-direction: row;
+    gap: 36px;
+    align-items: flex-start;
+  }
+
+  .today-left-col {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex: 0 0 260px;
+    position: sticky;
+    top: 36px;
+  }
+
+  .today-right-col {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .today-ring-section { justify-content: flex-start; }
+}
+
+
 /* Greeting */
 .today-greeting { display: flex; flex-direction: column; gap: 4px; }
 
