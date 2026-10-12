@@ -1,0 +1,406 @@
+.today-page { display: flex; flex-direction: column; gap: 20px; }
+
+/* Greeting */
+.today-greeting { display: flex; flex-direction: column; gap: 4px; }
+
+.today-greeting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.today-greeting-text {
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: -1px;
+  line-height: 1.1;
+}
+
+.today-date-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.today-date {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.today-date.past {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.date-nav-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.12s, color 0.12s;
+}
+
+.date-nav-btn:hover:not(:disabled) { background: var(--surface2); color: var(--text); }
+.date-nav-btn:disabled { opacity: 0.3; cursor: default; }
+
+.date-nav-spacer { width: 30px; flex-shrink: 0; }
+
+.back-to-today-btn {
+  align-self: flex-start;
+  background: transparent;
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  margin-top: 2px;
+}
+
+/* Ring */
+.today-ring-section {
+  display: flex;
+  justify-content: center;
+  padding: 8px 0 4px;
+}
+
+.ring-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ring-svg { display: block; }
+
+.ring-inner {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.ring-pct {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  line-height: 1;
+  color: var(--text);
+}
+
+.ring-sub {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.ring-outer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.ring-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+}
+
+/* Week strip */
+.week-strip-card {
+  padding: 16px 18px;
+}
+
+.week-strip-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin-bottom: 12px;
+}
+
+.week-strip {
+  display: flex;
+  justify-content: space-between;
+}
+
+.week-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+}
+
+.week-dot {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--accent) var(--dot-fill, 12%), transparent);
+  border: 2px solid color-mix(in srgb, var(--accent) var(--dot-stroke, 25%), transparent);
+  transition: background 0.2s, border-color 0.2s;
+}
+
+
+.week-dot.today {
+  box-shadow: 0 0 0 3px var(--accent-dim);
+}
+
+.week-day-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.week-day-label.today   { color: var(--accent); }
+.week-day-label.viewing { color: var(--text); font-weight: 700; }
+
+.week-dot.viewing {
+  box-shadow: 0 0 0 3px rgba(255,255,255,0.15), 0 0 0 5px var(--accent);
+}
+
+/* All-done card */
+.all-done-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 32px 24px;
+  text-align: center;
+  border-color: var(--accent);
+}
+
+.all-done-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+
+.all-done-text {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+}
+
+.all-done-sub {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.all-done-toggle {
+  margin-top: 8px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid var(--border);
+}
+
+.all-done-toggle:hover { color: var(--text); background: var(--surface2); }
+
+/* Section */
+.today-section { display: flex; flex-direction: column; gap: 10px; }
+
+.today-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.today-section-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--muted);
+}
+
+.today-progress-pct {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.today-empty {
+  font-size: 14px;
+  color: var(--muted);
+  padding: 32px 0;
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* Habit / task rows */
+.habit-list { display: flex; flex-direction: column; gap: 8px; }
+
+.habit-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  text-align: left;
+  width: 100%;
+  transition: border-color 0.15s, background 0.15s, transform 0.15s, box-shadow 0.15s;
+}
+
+.habit-row:not(.done):hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+}
+
+.habit-row.done {
+  border-color: var(--accent);
+  background: var(--accent-dim);
+}
+
+.habit-check {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  flex-shrink: 0;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.habit-row.done .habit-check {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #fff;
+}
+
+.habit-info { flex: 1; min-width: 0; }
+
+.habit-name {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.habit-streak {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 2px;
+  font-weight: 500;
+}
+
+.todo-strike {
+  text-decoration: line-through;
+  color: var(--muted);
+}
+
+/* Daily intention */
+.intention-prompt {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 14px 16px;
+  background: var(--surface2);
+  border: 1.5px dashed var(--border);
+  border-radius: 14px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.intention-prompt:hover { border-color: var(--accent); color: var(--accent); }
+
+.intention-prompt-icon { font-size: 16px; }
+
+.intention-set {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 16px;
+  background: var(--accent-dim);
+  border: 1.5px solid var(--accent);
+  border-radius: 14px;
+  cursor: pointer;
+  position: relative;
+  transition: opacity 0.15s;
+}
+
+.intention-set:hover { opacity: 0.85; }
+
+.intention-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--accent);
+}
+
+.intention-text {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.4;
+  padding-right: 20px;
+}
+
+.intention-edit-icon {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  color: var(--accent);
+  opacity: 0.6;
+}
+
+.intention-edit {
+  width: 100%;
+}
+
+.intention-input {
+  width: 100%;
+  padding: 14px 16px;
+  background: var(--surface2);
+  border: 1.5px solid var(--accent);
+  border-radius: 14px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  font-family: inherit;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.habit-week-badge {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--accent);
+  background: var(--accent-dim);
+  border-radius: 6px;
+  padding: 3px 7px;
+  flex-shrink: 0;
+  letter-spacing: 0.03em;
+}

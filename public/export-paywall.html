@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Daily — Export Paywall Image</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #0d1018; color: #e8eaf0; padding: 40px; }
+    h1 { font-size: 18px; font-weight: 600; margin-bottom: 24px; }
+    canvas { display: block; border-radius: 16px; margin-bottom: 24px; }
+    button {
+      background: #4f84f0; color: #fff; border: none; padding: 12px 28px;
+      border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer;
+    }
+    button:hover { background: #3d72de; }
+  </style>
+</head>
+<body>
+  <h1>Daily Pro — 1024 × 1024 Subscription Image</h1>
+  <canvas id="c" width="1024" height="1024" style="width:400px;height:400px"></canvas>
+  <button onclick="download()">Download paywall-image.png</button>
+
+  <script>
+    const canvas = document.getElementById('c')
+    const ctx = canvas.getContext('2d')
+
+    const BG      = '#f0f4fb'
+    const SURFACE = '#ffffff'
+    const ACCENT  = '#4f84f0'
+    const TEXT    = '#0f172a'
+    const MUTED   = '#64748b'
+
+    function roundRect(x, y, w, h, r) {
+      ctx.beginPath()
+      ctx.moveTo(x + r, y)
+      ctx.lineTo(x + w - r, y)
+      ctx.quadraticCurveTo(x + w, y, x + w, y + r)
+      ctx.lineTo(x + w, y + h - r)
+      ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h)
+      ctx.lineTo(x + r, y + h)
+      ctx.quadraticCurveTo(x, y + h, x, y + h - r)
+      ctx.lineTo(x, y + r)
+      ctx.quadraticCurveTo(x, y, x + r, y)
+      ctx.closePath()
+    }
+
+    function draw() {
+      // Background
+      ctx.fillStyle = BG
+      ctx.fillRect(0, 0, 1024, 1024)
+
+      // Card
+      ctx.fillStyle = SURFACE
+      ctx.shadowColor = 'rgba(0,0,0,0.08)'
+      ctx.shadowBlur = 40
+      ctx.shadowOffsetY = 8
+      roundRect(80, 80, 864, 864, 40)
+      ctx.fill()
+      ctx.shadowBlur = 0
+      ctx.shadowOffsetY = 0
+
+      // Arc logo mark (285° ring)
+      ctx.save()
+      ctx.translate(512, 230)
+      ctx.rotate(-Math.PI / 2)
+      ctx.beginPath()
+      ctx.arc(0, 0, 72, 0, (285 / 360) * 2 * Math.PI)
+      ctx.strokeStyle = ACCENT
+      ctx.lineWidth = 28
+      ctx.lineCap = 'round'
+      ctx.stroke()
+      ctx.restore()
+
+      // Title
+      ctx.fillStyle = TEXT
+      ctx.font = '700 72px -apple-system, BlinkMacSystemFont, sans-serif'
+      ctx.textAlign = 'center'
+      ctx.fillText('Daily Pro', 512, 370)
+
+      // Subtitle
+      ctx.fillStyle = MUTED
+      ctx.font = '400 36px -apple-system, BlinkMacSystemFont, sans-serif'
+      ctx.fillText('Unlock the full experience', 512, 430)
+
+      // Divider
+      ctx.fillStyle = '#e2e8f0'
+      ctx.fillRect(160, 470, 704, 2)
+
+      // Features
+      const features = [
+        'Unlimited habits',
+        'Unlimited goals',
+        'Full progress history',
+        'Support indie development',
+      ]
+      ctx.textAlign = 'left'
+      features.forEach((f, i) => {
+        const y = 550 + i * 80
+        // Check mark
+        ctx.fillStyle = ACCENT
+        ctx.font = '700 40px -apple-system, BlinkMacSystemFont, sans-serif'
+        ctx.fillText('✓', 200, y)
+        // Feature text
+        ctx.fillStyle = TEXT
+        ctx.font = '500 38px -apple-system, BlinkMacSystemFont, sans-serif'
+        ctx.fillText(f, 270, y)
+      })
+
+      // Subscribe button
+      ctx.fillStyle = ACCENT
+      roundRect(160, 850, 704, 90, 20)
+      ctx.fill()
+      ctx.fillStyle = '#ffffff'
+      ctx.font = '600 38px -apple-system, BlinkMacSystemFont, sans-serif'
+      ctx.textAlign = 'center'
+      ctx.fillText('Subscribe — $2.99/mo', 512, 905)
+    }
+
+    draw()
+
+    function download() {
+      const a = document.createElement('a')
+      a.download = 'paywall-image.png'
+      a.href = canvas.toDataURL('image/png')
+      a.click()
+    }
+  </script>
+</body>
+</html>

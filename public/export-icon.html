@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Daily — Export App Icon</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #0d1018; color: #e8eaf0; padding: 48px 40px; }
+    h1 { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
+    .sub { font-size: 13px; color: #666; margin-bottom: 32px; }
+    .preview-row { display: flex; align-items: flex-end; gap: 20px; margin-bottom: 32px; }
+    .preview-item { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+    .preview-label { font-size: 11px; color: #555; }
+    canvas { display: none; }
+    .preview-canvas { display: block; image-rendering: -webkit-optimize-contrast; border-radius: 22.5%; }
+    button {
+      background: #4f84f0; color: #fff; border: none; padding: 12px 28px;
+      border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer;
+      margin-bottom: 20px;
+    }
+    button:hover { background: #3d72de; }
+    code { background: #1a1f2e; padding: 2px 7px; border-radius: 5px; font-size: 12px; color: #8aa4d8; }
+    .steps { font-size: 13px; color: #666; line-height: 2; }
+  </style>
+</head>
+<body>
+  <h1>Daily — App Icon Export</h1>
+  <p class="sub">Renders the SVG to 1024 × 1024 PNG for App Store submission</p>
+
+  <div class="preview-row">
+    <div class="preview-item">
+      <canvas class="preview-canvas" id="p160" width="160" height="160" style="width:160px;height:160px;border-radius:36px"></canvas>
+      <span class="preview-label">App Store</span>
+    </div>
+    <div class="preview-item">
+      <canvas class="preview-canvas" id="p60" width="60" height="60" style="width:60px;height:60px;border-radius:13px"></canvas>
+      <span class="preview-label">60pt iPhone</span>
+    </div>
+    <div class="preview-item">
+      <canvas class="preview-canvas" id="p29" width="29" height="29" style="width:29px;height:29px;border-radius:6px"></canvas>
+      <span class="preview-label">29pt Settings</span>
+    </div>
+  </div>
+
+  <!-- hidden 1024px canvas for export -->
+  <canvas id="export" width="1024" height="1024"></canvas>
+
+  <br>
+  <button onclick="download()">Download icon.png (1024 × 1024)</button>
+
+  <div class="steps">
+    After downloading:<br>
+    1. Move <code>icon.png</code> → <code>resources/icon.png</code><br>
+    2. Run <code>npx @capacitor/assets generate --ios</code>
+  </div>
+
+  <script>
+    const img = new Image()
+    img.onload = () => {
+      ['export','p160','p60','p29'].forEach(id => {
+        const c = document.getElementById(id)
+        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height)
+        c.style.display = 'block'
+      })
+    }
+    img.src = '/icon.svg'
+
+    function download() {
+      const a = document.createElement('a')
+      a.download = 'icon.png'
+      a.href = document.getElementById('export').toDataURL('image/png')
+      a.click()
+    }
+  </script>
+</body>
+</html>

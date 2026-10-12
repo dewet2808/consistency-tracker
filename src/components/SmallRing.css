@@ -1,0 +1,31 @@
+.small-ring-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.small-ring-svg { display: block; }
+
+.small-ring-inner {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+}
+
+.small-ring-pct {
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1;
+  color: var(--text);
+}
+
+.small-ring-sub {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--muted);
+}

@@ -1,0 +1,445 @@
+.habits-page { display: flex; flex-direction: column; gap: 20px; }
+
+.habit-form {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.habit-form-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+/* Empty state */
+.habits-empty {
+  text-align: center;
+  padding: 56px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.habits-empty-icon { color: var(--muted); }
+.habits-empty-text { font-size: 16px; font-weight: 600; }
+.habits-empty-sub  { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+/* Habit cards list */
+.habit-cards { display: flex; flex-direction: column; gap: 8px; }
+
+.habit-card {
+  padding: 16px 18px;
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.habit-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent-dim), 0 6px 20px rgba(0,0,0,0.15);
+  transform: translateY(-1px);
+}
+
+.habit-card-main {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.habit-card-info { flex: 1; min-width: 0; }
+
+.habit-card-name {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.habit-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.habit-card-total {
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.habit-card-chevron {
+  color: var(--muted);
+  transform: rotate(180deg);
+  flex-shrink: 0;
+}
+
+/* ── Frequency picker ── */
+.freq-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.freq-btn {
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1.5px solid var(--border);
+  background: var(--surface2);
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+}
+
+.freq-btn.active {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #fff;
+}
+
+.freq-btn:not(.active):hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Frequency card in habit detail */
+.habit-freq-card {
+  padding: 16px 18px;
+}
+
+.habit-freq-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.habit-freq-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  margin-bottom: 3px;
+}
+
+.habit-freq-value {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* Badge variant */
+.badge-muted {
+  background: var(--surface3);
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+/* ── Habit detail ── */
+.habit-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.habit-detail-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.habit-detail-name {
+  flex: 1;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+.habit-detail-name-input {
+  flex: 1;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.habit-detail-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+/* Stats grid */
+.habit-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+@media (max-width: 480px) {
+  .habit-stats-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.habit-stat {
+  padding: 16px 12px;
+  text-align: center;
+}
+
+.habit-stat-value {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: -1px;
+  line-height: 1;
+  margin-bottom: 5px;
+}
+
+.habit-stat-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* Calendar months */
+.habit-cal-months {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.habit-month {
+  padding: 16px;
+}
+
+.habit-month-title {
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  letter-spacing: -0.1px;
+}
+
+.habit-day-headers {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 6px;
+}
+
+.habit-day-header {
+  text-align: center;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding-bottom: 4px;
+}
+
+.habit-month-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 3px;
+}
+
+.habit-day-cell {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.habit-day-cell.done {
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+}
+
+.habit-day-cell.today {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.habit-day-cell.today.done {
+  color: #fff;
+}
+
+.habit-day-cell.future {
+  opacity: 0.2;
+}
+
+.habit-day-cell.empty {
+  pointer-events: none;
+}
+
+/* ── Summary card ── */
+.habits-summary {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 18px 20px;
+}
+
+.habits-summary-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.habits-summary-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+.habits-summary-status {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+  line-height: 1.2;
+  margin-top: 2px;
+}
+
+.habits-summary-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.stat-chip {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: var(--surface2);
+  color: var(--muted);
+  border: 1px solid var(--border);
+  letter-spacing: 0.01em;
+}
+
+/* ── 7-day mini dots ── */
+.habit-dots {
+  display: flex;
+  gap: 5px;
+  margin-top: 9px;
+}
+
+.habit-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--surface3);
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+
+.habit-dot.done {
+  background: var(--accent);
+}
+
+/* ── Year grid ── */
+.year-grid-card {
+  padding: 16px 16px 14px;
+}
+
+.year-grid-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.year-grid-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--muted);
+}
+
+.year-grid-nav {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.year-grid-year {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+  min-width: 36px;
+  text-align: center;
+}
+
+.year-grid-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 4px;
+}
+
+.year-month-labels {
+  display: grid;
+  grid-template-columns: repeat(var(--week-count), 11px);
+  gap: 2px;
+  margin-bottom: 3px;
+  position: relative;
+  height: 14px;
+}
+
+.year-month-label {
+  grid-column: calc(var(--wi) + 1);
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.year-grid {
+  display: flex;
+  gap: 2px;
+}
+
+.year-week {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.year-cell {
+  width: 9px;
+  height: 9px;
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--accent) var(--fill, 10%), transparent);
+  flex-shrink: 0;
+}
+
+.year-cell.ghost {
+  opacity: 0.3;
+}
+
+.year-cell.today {
+  outline: 1.5px solid var(--accent);
+  outline-offset: 1px;
+}
+
+/* ── Done-today card state ── */
+.habit-card.done-today {
+  border-color: var(--accent);
+  background: var(--accent-dim);
+}

@@ -1,0 +1,348 @@
+.goals-page { display: flex; flex-direction: column; gap: 20px; }
+
+.goal-form {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.goal-form-heading {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.goal-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+textarea {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: var(--radius);
+  padding: 10px 13px;
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  resize: vertical;
+  min-height: 64px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-dim); }
+
+.goal-form-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+/* Empty */
+.goals-empty {
+  text-align: center;
+  padding: 56px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.goals-empty-icon { color: var(--muted); }
+.goals-empty-text { font-size: 16px; font-weight: 600; }
+.goals-empty-sub  { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+/* Sections */
+.goals-section { display: flex; flex-direction: column; gap: 10px; }
+
+.goals-section-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.goal-list { display: flex; flex-direction: column; gap: 8px; }
+
+/* Goal card */
+.goal-card {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.goal-card.completed { opacity: 0.55; }
+
+.goal-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.goal-card-title {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.goal-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.goal-complete-btn {
+  background: transparent;
+  padding: 4px;
+  color: var(--muted);
+  border-radius: 7px;
+  display: flex;
+}
+
+.goal-complete-btn:hover { color: var(--green); }
+.goal-complete-btn .done { color: var(--green); }
+
+.goal-meta {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.goal-desc {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+/* Progress */
+.goal-progress-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.goal-bar {
+  flex: 1;
+  height: 7px;
+  background: var(--surface3);
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.15);
+}
+
+.goal-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+  border-radius: 4px;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.goal-pct {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  min-width: 32px;
+  text-align: right;
+}
+
+.goal-progress-btns {
+  display: flex;
+  gap: 4px;
+}
+
+.progress-btn {
+  width: 30px;
+  height: 30px;
+  background: var(--surface2);
+  color: var(--text);
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  border: 1px solid var(--border);
+  transition: background 0.15s, transform 0.1s;
+}
+
+.progress-btn:hover { background: var(--surface3); }
+.progress-btn:active { transform: scale(0.93); }
+
+/* ── Goal type selector ── */
+.goal-type-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.goal-type-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 12px 8px 10px;
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface2);
+  color: var(--muted);
+  cursor: pointer;
+  transition: border-color 0.12s, background 0.12s, color 0.12s;
+}
+
+.goal-type-btn:hover { border-color: var(--accent); color: var(--text); }
+
+.goal-type-btn.active {
+  border-color: var(--accent);
+  background: var(--accent-dim);
+  color: var(--accent);
+}
+
+.goal-type-label {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.goal-type-hint {
+  font-size: 10px;
+  font-weight: 500;
+  opacity: 0.75;
+}
+
+/* ── Time input ── */
+.time-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.time-part {
+  width: 0;
+  flex: 1;
+  text-align: center;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.time-sep {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+/* ── Tracker info strip ── */
+.goal-tracker-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--surface2);
+  border-radius: 10px;
+}
+
+.tracker-main {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.tracker-distance {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-right: 2px;
+}
+
+.tracker-value {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: var(--text);
+}
+
+.tracker-denom {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.tracker-aside {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.tracker-gain {
+  color: var(--green);
+  font-weight: 700;
+}
+
+/* ── Log button ── */
+.btn-log {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 7px;
+  border: 1.5px solid var(--accent);
+  color: var(--accent);
+  background: transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.12s;
+  letter-spacing: 0.01em;
+}
+
+.btn-log:hover { background: var(--accent-dim); }
+
+/* ── Log panel ── */
+.goal-log-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px;
+  background: var(--surface2);
+  border-radius: 10px;
+}
+
+.goal-log-panel label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+.goal-log-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.goal-log-row input { flex: 1; }
+.goal-log-row .time-row { flex: 1; }
+
+.goal-log-hint {
+  font-size: 11px;
+  color: var(--muted);
+  padding-top: 2px;
+}
+
+/* ── Type badge ── */
+.badge-type {
+  background: var(--surface3);
+  color: var(--text);
+}
